@@ -1,0 +1,32 @@
+{
+  "name": "Okta Phishing Detection",
+  "version": "2023.4.1",
+  "description": "Displays a banner on an Okta login page to help the user determine if it's a valid login page",
+  "manifest_version": 3,
+  "author": "lum8rjack",
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts":[
+    {
+     "matches":["<all_urls>"],
+     "js":["main.js"]
+    }
+  ],
+  "action": {
+    "default_title": "Okta Phishing Detection",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "32": "icon.png",
+      "48": "icon.png",
+      "96": "icon.png"
+    }
+  },
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "96": "icon.png"
+  }
+}

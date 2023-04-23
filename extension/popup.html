@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Okta Phishing Detection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="header" style="text-align: center;">
+        <h3>Okta Phishing Detection</h3>
+    </div>
+    <div id="options">
+        <label for="vbanner"><b>Valid banner text:</b></label>
+        <input type="text" id="vbanner" name="vbanner" maxlength="100" value="Valid Okta Page"><br><br>
+        <label for="fbanner"><b>Fake banner text:</b></label>
+        <input type="text" id="fbanner" maxlength="100" value="Fake Okta Page"><br><br>
+        <label for="iconlist"><b>Custom icon:</b></label>
+        <select name="iconlist" id="iconlist">
+            <option value="1">&#128077;</option>
+            <option value="2">&#128512;</option>
+            <option value="3">&#128507;</option>
+            <option value="4">&#128293;</option>
+            <option value="5">&#128511;</option>
+        </select><br><br>
+        <button id="savebutton" type="button">Save</button>
+    </div>
+</body>
+<script type="text/javascript" src="popup.js"></script>
+</html>
