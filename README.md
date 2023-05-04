@@ -4,7 +4,15 @@
 
 This browser extension displays a banner on an Okta login page to help the user determine if it's a valid login page. This could help against attacks that proxy traffic to the legitimate Okta login page using a tool like [evilginx2](https://github.com/kgretzky/evilginx2).
 
+## Install
+
+The extension can be installed from the Chrome Web Store
+
+[Okta Phishing Detectoin](https://chrome.google.com/webstore/detail/okta-phishing-detection/nfgacdcbhlnhengjkgmaicngehehndga)
+
 ## Sideload the Chrome Extension
+
+It can also sideload if you decide to make any additional changes.
 
 1. Download / clone this repo
 2. Open the extensions page (`chrome://extensions/`)
