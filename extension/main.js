@@ -38,9 +38,11 @@ function showPhishingBanner() {
         var result = obj["oce"];
 
         var title = "Fake Okta Page";
+        var disable = "yes";
         if (typeof result !== 'undefined') {
             const conf = JSON.parse(result);
             title = conf.fb;
+            disable = conf.disable;
         }
 
         var d = document.createElement("div");
@@ -58,6 +60,13 @@ function showPhishingBanner() {
         e.innerHTML = "<div>" + title + "</div>";
         d.append(e);
         document.body.insertBefore(d, document.body.firstChild);
+        if (disable) {
+            let element = document.getElementById('okta-sign-in');
+            while (element === null) {
+                element = document.getElementById('okta-sign-in');
+            }
+            element.style.pointerEvents = "none"
+        }
     });
 }
 
