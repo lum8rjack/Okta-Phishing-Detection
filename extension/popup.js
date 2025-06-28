@@ -2,10 +2,11 @@
 var vb = "Valid Okta Page";
 var fb = "Fake Okta Page";
 var ic = "1";
+var d = true;
 
 // Get configuration from storage
 function loadConfig() {
-    var defaultObj = `{"vb":"", "fb":"", "icon":""}`;
+    var defaultObj = `{"vb":"", "fb":"", "icon":"", "disable":true}`;
 
     // Get storage
     chrome.storage.sync.get("oce", function(obj) {
@@ -41,6 +42,13 @@ function loadConfig() {
             var iconlist = document.getElementById("iconlist")
             iconlist.value = conf.icon;
         }
+
+        // Load the "disable" value
+        if (typeof conf.disable == "boolean") {
+            document.getElementById("disable").checked = conf.disable;
+        } else {
+            document.getElementById("disable").checked = d;
+        }
     });
 }
 
@@ -48,8 +56,9 @@ function loadConfig() {
 function saveConfig() {
     var vtext = document.getElementById("vbanner").value;
     var ftext = document.getElementById("fbanner").value;
-    var iconlist = document.getElementById("iconlist")
+    var iconlist = document.getElementById("iconlist");
     var iconvalue = iconlist.value;
+    var disable = document.getElementById("disable").checked;
 
     // Check for empty values
     if (vtext === "") {
@@ -61,13 +70,12 @@ function saveConfig() {
     if (iconvalue === "") {
         iconvalue = ic;
     }
-
     // Remove any special characters from user's input
     vtext = vtext.replace(/[^a-zA-Z0-9 -.]/g, '');
     ftext = ftext.replace(/[^a-zA-Z0-9 -.]/g, '');
     iconvalue = iconvalue.replace(/[^0-9]/g, '');
     
-    var obj = {"vb":vtext, "fb":ftext, "icon":iconvalue};
+    var obj = {"vb":vtext, "fb":ftext, "icon":iconvalue, "disable":disable};
     var json = JSON.stringify(obj);
 
     // Save config to storage
