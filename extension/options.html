@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Okta Phishing Detection - Options</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0 auto;
+            padding: 32px;
+            max-width: 560px;
+            background: linear-gradient(180deg, #1e3a5f 0%, #0d2137 100%);
+            color: #e8f0fe;
+            line-height: 1.5;
+            text-align: center;
+            min-height: 100vh;
+        }
+        h1 {
+            margin: 0 0 24px 0;
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .overview {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .overview h2 {
+            margin: 0 0 12px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .overview p {
+            margin: 0;
+            font-size: 14px;
+            color: #b8d4f0;
+        }
+        .settings {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .settings h2 {
+            margin: 0 0 20px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .settings > p {
+            color: #b8d4f0;
+        }
+        .field {
+            margin-bottom: 20px;
+        }
+        .field:last-of-type {
+            margin-bottom: 24px;
+        }
+        .field label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #e8f0fe;
+        }
+        .field .hint {
+            font-size: 13px;
+            color: #9cb8dc;
+            margin-top: 6px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: border-color 0.15s ease, background 0.15s ease;
+        }
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4da3ff;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px 12px;
+            font-size: 14px;
+            font-family: inherit;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            resize: vertical;
+            transition: border-color 0.15s ease, background 0.15s ease;
+        }
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #4da3ff;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .checkbox-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            justify-content: center;
+        }
+        .checkbox-row input[type="checkbox"] {
+            margin: 3px 0 0 0;
+            width: 18px;
+            height: 18px;
+            accent-color: #4da3ff;
+            cursor: pointer;
+        }
+        .checkbox-row label {
+            margin-bottom: 0;
+            cursor: pointer;
+            font-weight: 400;
+            color: #e8f0fe;
+            text-align: left;
+        }
+        #savebutton {
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #0d2137;
+            background: #4da3ff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s ease, transform 0.1s ease;
+        }
+        #savebutton:hover {
+            background: #7ab8ff;
+        }
+        #savebutton:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <h1>Okta Phishing Detection</h1>
+
+    <section class="overview">
+        <h2>What this extension does</h2>
+        <p>This extension helps you spot fake Okta login pages. It checks each page that looks like Okta (one that shows the “Powered by Okta” footer) and compares it to the site’s domain. If the page looks like Okta but the URL is not on okta.com, it’s likely a phishing site. In that case, a red warning banner appears at the top of the page. On real Okta pages (e.g. your-company.okta.com), no banner is shown.</p>
+    </section>
+
+    <section class="settings">
+        <h2>Settings</h2>
+        <p style="margin: 0 0 20px 0; font-size: 14px;">Customize what happens when a potential phishing page is detected.</p>
+
+        <div class="field">
+            <label for="fbanner">Banner text</label>
+            <input type="text" id="fbanner" name="fbanner" maxlength="100" value="Fake Okta Page" placeholder="Fake Okta Page">
+            <p class="hint">The message shown in the red warning bar at the top of the page.</p>
+        </div>
+
+        <div class="field">
+            <div class="checkbox-row">
+                <input type="checkbox" name="disable" id="disable">
+                <label for="disable">Disable the login form on detected phishing pages (recommended). This blocks submitting credentials on suspicious pages.</label>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="allowlist">Allow list</label>
+            <textarea id="allowlist" name="allowlist" placeholder="sso.yourcompany.com&#10;login.trusted.org" rows="4"></textarea>
+            <p class="hint">One domain per line. The extension will not show a warning on these domains, in case a valid Okta-style page is flagged by mistake.</p>
+        </div>
+
+        <button id="savebutton" type="button">Save</button>
+    </section>
+</body>
+<script type="text/javascript" src="options.js"></script>
+</html>

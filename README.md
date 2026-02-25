@@ -1,46 +1,47 @@
-# Okta-Phishing-Detection
+# Okta Phishing Detection
 
 ## Overview
 
-This browser extension displays a banner on an Okta login page to help the user determine if it's a valid login page. This could help against attacks that proxy traffic to the legitimate Okta login page using a tool like [evilginx2](https://github.com/kgretzky/evilginx2).
+This browser extension helps you tell real Okta logins from fake ones. It shows a **red warning banner only** when a page looks like Okta (e.g. has the “Powered by Okta” footer) but the site is **not** on `okta.com`—a strong sign of phishing or a proxied attack (e.g. via [evilginx2](https://github.com/kgretzky/evilginx2)). On real Okta pages (such as `your-company.okta.com`), no banner is shown.
 
 ## Install
 
-The extension can be installed from the Chrome Web Store
+Install from the Chrome Web Store:
 
-[Okta Phishing Detectoin](https://chrome.google.com/webstore/detail/okta-phishing-detection/nfgacdcbhlnhengjkgmaicngehehndga)
+[Okta Phishing Detection](https://chrome.google.com/webstore/detail/okta-phishing-detection/nfgacdcbhlnhengjkgmaicngehehndga)
 
-## Sideload the Chrome Extension
+## Sideload the extension
 
-It can also sideload if you decide to make any additional changes.
+You can also load the extension unpacked for development or custom changes:
 
-1. Download / clone this repo
-2. Open the extensions page (`chrome://extensions/`)
-3. Toggle on the **Developer mode** setting
-4. Click on **Load unpacked**
-5. Select the `extension` directory from this repo
+1. Download or clone this repo.
+2. Open `chrome://extensions/`.
+3. Turn on **Developer mode**.
+4. Click **Load unpacked** and select the `extension` folder.
 
-## Usage
+## How it works
 
-Once the extension is loaded, it will display a banner on pages it identifies as Okta login pages. It does this in two ways:
+- **Valid Okta pages** (domain ends with `.okta.com` and has the “Powered by Okta” footer): **No banner** is shown.
+- **Suspicious pages** (same Okta-style footer but domain does **not** end with `.okta.com`): A **red warning banner** appears at the top of the page.
 
-1. Identifies valid login pages based on if the domain ends with `.okta.com` and has a copyright footer containing `Powered by Okta`.
-2. Invalid or fake login pages are identified by domains not ending with `.okta.com` and still having the copyright footer.
+You can add **trusted domains** in Options so the extension never warns on those sites (e.g. a valid SSO domain that was being flagged).
 
-**Note:** There may be some edge cases I have not identified and can update the logic above as needed. Feel free to submit a PR.
+## Options
 
-You can customize the banner by clicking on the extension icon and changing the text or icon and clicking "Save".
+Click the extension icon, then **Options**, to open the settings page. You can:
 
-![icon](img/extension-icon.png)
+- **Banner text** – Customize the message shown in the red warning bar.
+- **Disable login form** – Optionally block submitting the form on detected phishing pages (recommended).
+- **Allow list** – List domains (one per line) that should never show the warning, even if they look like Okta but aren’t on `okta.com`.
+
+![Options](img/extension-options.png)
 
 ## Examples
 
-Based on [Okta's customers](https://www.okta.com/customers/), we can see Zoom's Okta login page:
+A cloned Okta-style page hosted on a non-okta.com domain is correctly flagged with the warning banner:
 
-![valid](img/extension-valid.png)
+![Fake page example](img/extension-fake.png)
 
-As an example, I cloned the page and hosted it locally to show that the browser extension correctly identifies the malicious page:
+## Note
 
-![fake](img/extension-fake.png)
-
-
+Edge cases may exist; detection logic may be updated over time. Contributions and PRs are welcome.
