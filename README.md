@@ -4,6 +4,8 @@
 
 This browser extension helps you tell real Okta logins from fake ones. It shows a **red warning banner only** when a page looks like Okta (e.g. has the “Powered by Okta” footer) but the site is **not** on `okta.com`—a strong sign of phishing or a proxied attack (e.g. via [evilginx2](https://github.com/kgretzky/evilginx2)). On real Okta pages (such as `your-company.okta.com`), no banner is shown.
 
+For an in-depth explanation of the types of phishing this extension detects and the rationale behind the detection methods, see the blog post: [Okta Phishing Detection Blog Post](https://blog.lum8rjack.com/posts/okta-phishing-detection/).
+
 ## Install
 
 Install from the Chrome Web Store:
