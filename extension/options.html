@@ -158,13 +158,13 @@
 
     <section class="overview">
         <h2>What this extension does</h2>
-        <p>This extension helps you spot fake Okta login pages. It checks each page that looks like Okta (one that shows the “Powered by Okta” footer) and compares it to the site’s domain. If the page looks like Okta but the URL is not on okta.com, it’s likely a phishing site. In that case, a red warning banner appears at the top of the page. On real Okta pages (e.g. your-company.okta.com), no banner is shown.</p>
+        <p>This extension helps you spot fake Okta login pages. It checks each page that looks like Okta and compares it to the site’s domain. If the page looks like Okta but the URL is not a subdomain of okta.com, it’s likely a phishing site. In that case, a red warning banner appears at the top of the page.
+        <br><br>
+        On real Okta pages (e.g. your-company.okta.com), no banner is shown. There are cases where companies use a custom domain for their Okta login page, in which case you can add the domain to the allow list to prevent the warning from being shown.</p>
     </section>
 
     <section class="settings">
         <h2>Settings</h2>
-        <p style="margin: 0 0 20px 0; font-size: 14px;">Customize what happens when a potential phishing page is detected.</p>
-
         <div class="field">
             <label for="fbanner">Banner text</label>
             <input type="text" id="fbanner" name="fbanner" maxlength="100" value="Fake Okta Page" placeholder="Fake Okta Page">
@@ -181,7 +181,9 @@
         <div class="field">
             <label for="allowlist">Allow list</label>
             <textarea id="allowlist" name="allowlist" placeholder="sso.yourcompany.com&#10;login.trusted.org" rows="4"></textarea>
-            <p class="hint">One domain per line. The extension will not show a warning on these domains, in case a valid Okta-style page is flagged by mistake.</p>
+            <p class="hint">
+                Enter one domain per line. If the current page’s domain matches a domain in this list, or is a subdomain of a listed domain (for example, "okta.example.com" is covered by "example.com"), the extension will not show a warning. This is useful for trusted custom Okta pages that may otherwise be flagged by mistake.
+            </p>
         </div>
 
         <button id="savebutton" type="button">Save</button>

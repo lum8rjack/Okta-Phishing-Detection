@@ -1,6 +1,6 @@
 {
   "name": "Okta Phishing Detection",
-  "version": "2026.2.1",
+  "version": "2026.3.0",
   "description": "Helps protect users from phishing by displaying a warning banner on potentially fake Okta login pages.",
   "manifest_version": 3,
   "author": "lum8rjack",

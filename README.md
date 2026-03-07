@@ -2,7 +2,7 @@
 
 ## Overview
 
-This browser extension helps you tell real Okta logins from fake ones. It shows a **red warning banner only** when a page looks like Okta (e.g. has the “Powered by Okta” footer) but the site is **not** on `okta.com`—a strong sign of phishing or a proxied attack (e.g. via [evilginx2](https://github.com/kgretzky/evilginx2)). On real Okta pages (such as `your-company.okta.com`), no banner is shown.
+This browser extension helps you tell real Okta logins from fake ones. It shows a **red warning banner only** when a page looks like Okta but the site is **not** a subdomain of `okta.com`—a strong sign of phishing or a proxied attack (e.g. via [evilginx2](https://github.com/kgretzky/evilginx2)). On real Okta pages (such as `your-company.okta.com`), no banner is shown.
 
 For an in-depth explanation of the types of phishing this extension detects and the rationale behind the detection methods, see the blog post: [Okta Phishing Detection Blog Post](https://blog.lum8rjack.com/posts/okta-phishing-detection/).
 
@@ -23,7 +23,7 @@ You can also load the extension unpacked for development or custom changes:
 
 ## How it works
 
-- **Valid Okta pages** (domain ends with `.okta.com` and has the “Powered by Okta” footer): **No banner** is shown.
+- **Valid Okta pages** (domain ends with `.okta.com` and has the “Powered by Okta” footer or ): **No banner** is shown.
 - **Suspicious pages** (same Okta-style footer but domain does **not** end with `.okta.com`): A **red warning banner** appears at the top of the page.
 
 You can add **trusted domains** in Options so the extension never warns on those sites (e.g. a valid SSO domain that was being flagged).

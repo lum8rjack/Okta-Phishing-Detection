@@ -11,7 +11,6 @@ function showPhishingBanner() {
         }
 
         var d = document.createElement("div");
-        d.setAttribute("id", "okta-phishing-banner");
         d.style.cssText = [
             "position: sticky",
             "top: 0",
@@ -56,20 +55,52 @@ function showPhishingBanner() {
     });
 }
 
-// Login footer has copyright details
-var copyright = document.getElementsByClassName('copyright');
-var domain = location.hostname;
+function isOktaLoginPage() {
+    // Login footer has copyright details
+    const copyright = document.getElementsByClassName('copyright');
+    if (copyright.length === 1 && copyright[0].innerText === "Powered by Okta") {
+        return true;
+    }
+
+    // Not all login pages have the "Powered by Okta" copyright footer
+    // This is mainly custom domains that are not subdomains of Okta
+    // In this case, it'll flag as "fake" but the user can add to allowlist
+
+    // Main login container contains a div with id=okta-sign-in
+    const oktaSignIn = document.getElementById("okta-sign-in");
+    if (oktaSignIn !== null) {
+        return true
+    }
+
+    return false;
+}
 
 // Check if the domain is in the allowlist
 function isDomainAllowed(hostname, allowlistStr) {
     if (!allowlistStr || allowlistStr.trim() === "") return false;
-    var entries = allowlistStr.split(/\r?\n/).map(function(line) { return line.trim().toLowerCase(); }).filter(function(line) { return line.length > 0; });
+    var entries = allowlistStr
+        .split(/\r?\n/)
+        .map(function(line) { return line.trim().toLowerCase(); })
+        .filter(function(line) { return line.length > 0; });
     var host = hostname.toLowerCase();
+
     for (var i = 0; i < entries.length; i++) {
-        if (host === entries[i] || host === entries[i].replace(/^\./, "") || host.endsWith("." + entries[i])) return true;
+        var entry = entries[i];
+
+        // Exact match
+        if (host === entry) return true;
+
+        // Allowlist entry covers subdomains too if it starts with a dot or otherwise (e.g. "example.com" allows "okta.example.com")
+        // Match if host is subdomain of entry
+        if (host === entry || host.endsWith("." + entry)) {
+            return true;
+        }
     }
     return false;
 }
+
+// Get domain to check if it ends with .okta.com
+const domain = location.hostname;
 
 chrome.storage.sync.get("oce", function(obj) {
     var result = obj["oce"];
@@ -81,9 +112,7 @@ chrome.storage.sync.get("oce", function(obj) {
         } catch (e) {}
     }
     if (isDomainAllowed(domain, allowlist)) return;
-    if (!domain.endsWith(".okta.com")) {
-        if (copyright.length === 1 && copyright[0].innerText === "Powered by Okta") {
-            showPhishingBanner();
-        }
+    if (!domain.endsWith(".okta.com") && isOktaLoginPage()) {
+        showPhishingBanner();
     }
 });
